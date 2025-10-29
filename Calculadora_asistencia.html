@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de Porcentaje de Asistencia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e8f0ff, #cfe0ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .contenedor {
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            width: 340px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            color: #444;
+        }
+        input[type="number"] {
+            width: 80%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #0078D7;
+            color: white;
+            padding: 10px 22px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s ease;
+        }
+        button:hover {
+            background-color: #005EA6;
+        }
+        .resultado {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 17px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h2>Calculadora de Asistencia</h2>
+        <label>Total de clases dadas:</label><br>
+        <input type="number" id="totalClases" min="1" placeholder="Ej: 10"><br>
+
+        <label>Total de asistencias del estudiante:</label><br>
+        <input type="number" id="asistencias" min="0" placeholder="Ej: 7"><br>
+
+        <button onclick="calcularAsistencia()">Calcular</button>
+
+        <div class="resultado" id="resultado"></div>
+    </div>
+
+    <script>
+        function calcularAsistencia() {
+            const total = parseFloat(document.getElementById("totalClases").value);
+            const asistencias = parseFloat(document.getElementById("asistencias").value);
+            const resultado = document.getElementById("resultado");
+
+            if (isNaN(total) || isNaN(asistencias)) {
+                resultado.textContent = "Por favor, completá ambos campos.";
+                resultado.style.color = "red";
+                return;
+            }
+            if (total <= 0) {
+                resultado.textContent = "El total de clases debe ser mayor que cero.";
+                resultado.style.color = "red";
+                return;
+            }
+            if (asistencias > total) {
+                resultado.textContent = "Las asistencias no pueden superar el total de clases.";
+                resultado.style.color = "red";
+                return;
+            }
+
+            const porcentaje = (asistencias / total) * 100;
+            const porcentajeRedondeado = Math.round(porcentaje * 100) / 100;
+
+            resultado.textContent = `El estudiante tiene un ${porcentajeRedondeado}% de asistencia.`;
+            resultado.style.color = "#333";
+        }
+    </script>
+</body>
+</html>
